@@ -1,0 +1,3 @@
+module Configurator
+  # hmm
+end

@@ -8,4 +8,4 @@ key: value
 numeric_data: 3.221
 sample_module:
     some_key: another value
-    
+key_should_be_module: I::Am::A::Module

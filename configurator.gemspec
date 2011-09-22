@@ -1,15 +1,18 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
 require "configurator/version"
+require "configurator/utilities"
 
 Gem::Specification.new do |s|
   s.name        = "configurator"
   s.version     = Configurator::VERSION
-  s.authors     = ["jweissman1986"]
+  s.authors     = ["Joseph Weissman"]
   s.email       = ["jweissman1986@gmail.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Configurator "hydrates" your Ruby application's module constants by walking
+  through a yaml file}
+  s.description = %q{Got constants strewn throughout your project? 
+  You can use Configurator to aggregate their definitions into one place.}
 
   s.rubyforge_project = "configurator"
 
@@ -21,4 +24,5 @@ Gem::Specification.new do |s|
   # specify any dependencies here; for example:
   # s.add_development_dependency "rspec"
   # s.add_runtime_dependency "rest-client"
+ # s.add_runtime_dependency "yaml"
 end
