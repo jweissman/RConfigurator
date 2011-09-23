@@ -14,7 +14,7 @@ To get this going, you just have to require 'rconfigurator' and provide use with
 name of the project and the location of the configuration file:
 
     require 'rconfigurator'
-    Configurator.configure! "ExampleModule", "/path/to/my/config"
+    RConfigurator.configure! "ExampleModule", "/path/to/my/config"
 
 Configurator will analyze the file and 'inflate' your module constants using the data it finds there. Let's say you've got the following module constants:
 
@@ -38,8 +38,7 @@ when the value is itself a module. RConfigurator will construct the module conte
 in place just before it needs a reference. 
 
 For a better feel of how this ends up being useful, or perhaps some inspiration,
-here's an example of part of a real configuration file for another project I'm working on
-(in fact, the same project which 'spawned' this utility):
+here's an example of part of a real configuration file I am using for another small project:
 
 		version: 0.3.9
 		release: alpha
@@ -63,6 +62,7 @@ here's an example of part of a real configuration file for another project I'm w
 	
 		# ... 
 
+
 --- RConfig
 
 RConfigurator comes with a debugger that will output the statements it will 'eval'. You can
@@ -81,3 +81,7 @@ Running rconfig over the first example yaml file gives us the module structure w
 --- Problems? 
 
 Please log bug reports and enhancement proposals here, or feel free to email the author/maintainer of RConfigurator, Joseph Weissman, jweissman1986 (at) gmail.com
+
+--- Conclusion
+
+So far in practice, I have found that it is definitely convenient to be able to architecturally separate 'tuning' from code. I like that I can instantiate complex module structures just by adding a few lines of YAML.
