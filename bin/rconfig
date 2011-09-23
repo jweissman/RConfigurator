@@ -11,5 +11,5 @@ require 'rconfigurator'
 require 'yaml'      
 
 ARGV.each do |config_file|
-  RConfigurator.configure!("[Parent Module]", config_file, true)
+  RConfigurator.configure!("HypotheticalParentModule", config_file, true)
 end
