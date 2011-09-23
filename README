@@ -74,8 +74,8 @@ would normally just silently 'eval'. Invoke this utility as 'rconfig [file1] [fi
 
 Running rconfig over the first example yaml file gives us the module structure 
 we are expecting. It uses "HypotheticalParentModule" as the root project module
-I have added indentation for clarity, but the output from rconfig will be one
-the 'compact' form it actually evaluates, with one key-value pair per line.
+Note the output from rconfig is the unindented 'compact' form we actually evaluate, 
+with one key-value pair per line.
 
 	module HypotheticalParentModule; module SampleModule; SOME_KEY = "another value"; end; ; end	
 	module I;  module Am;  module A;  module Module; end; end; end; end; 	
@@ -83,10 +83,11 @@ the 'compact' form it actually evaluates, with one key-value pair per line.
 	module HypotheticalParentModule; KEY = "value"; ; end	
 	module HypotheticalParentModule; NUMERIC_DATA = 3.221; ; end
 
-I have added this tool as a convenience, but I should point out that the configuration 
-is generally so straightforward that using it to 'validate' is probably not usually 
-necessary. It is there for sanity-checking and perhaps more complicated scenarios 
-where it could be helpful in the case the config file has become subtly incorrect.
+Please note that I have added this tool as a convenience, and I should point out 
+that developing the configuration file is generally quite straightforward. Using 
+rconfig to 'validate' is probably not necessary. This tool is included for sanity-
+inducing purposes (and perhaps more involved use-cases where it could be helpful 
+in the scenario where a complex config file has become subtly incorrect.)
 
 --- Problems? 
 

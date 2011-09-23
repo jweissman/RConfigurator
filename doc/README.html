@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>File: README [RDoc Documentation]</title>
+
+  <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet" />
+
+  <script src="./js/jquery.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/thickbox-compressed.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/quicksearch.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/darkfish.js" type="text/javascript"
+    charset="utf-8"></script>
+</head>
+
+<body class="file">
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="./Gemfile.html">Gemfile</a></li>
+        
+          <li class="file"><a href="./LICENSE_txt.html">LICENSE.txt</a></li>
+        
+          <li class="file"><a href="./README.html">README</a></li>
+        
+          <li class="file"><a href="./Rakefile.html">Rakefile</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="./images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="./RConfigurator.html">RConfigurator</a></li>
+        
+          <li><a href="./RConfigurator/Configurator.html">RConfigurator::Configurator</a></li>
+        
+          <li><a href="./RConfigurator/StringUtilities.html">RConfigurator::StringUtilities</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    
+<h3>Welcome to <a href="RConfigurator.html">RConfigurator</a>!</h3>
+
+<p>— Abstract</p>
+
+<p><a href="RConfigurator.html">RConfigurator</a> automatically “hydrates”
+your application’s module constants by walking through a .yml file. If
+you’ve got module constants strewn throughout your project,  you can use
+<a href="RConfigurator.html">RConfigurator</a> to aggregate these into one
+place.</p>
+
+<p>— Usage</p>
+
+<p>Just require ‘rconfigurator’, provide the location of the configuration
+file and the name of a project, and then call <a
+href="RConfigurator.html#method-c-configure-21">RConfigurator.configure!</a>:</p>
+
+<pre>require 'rconfigurator'
+RConfigurator.configure! &quot;ExampleModule&quot;, &quot;/path/to/my/config&quot;</pre>
+
+<p>Configurator will analyze the file and ‘inflate’ your module constants
+using the data  it finds there. Let’s say you’ve got the following
+module constants:</p>
+
+<pre>ExampleModule::KEY = 'value'
+ExampleModule::NUMERIC_DATA = 3.221
+ExampleModule::SampleModule::SOME_KEY = 'another value'    
+ExampleModule::KEY_SHOULD_BE_MODULE = I::Am::A::Module</pre>
+
+<p><a href="RConfigurator.html">RConfigurator</a> can create these for you
+(before you’ve even defined the modules themselves!) if you point it to
+the following .yml file:</p>
+
+<pre>key: value
+numeric_data: 3.221
+sample_module:
+    some_key: another value
+key_should_be_module: I::Am::A::Module</pre>
+
+<p><a href="RConfigurator.html">RConfigurator</a> even handles some common
+edge cases for you, in particular the case  when the value is itself a
+module. <a href="RConfigurator.html">RConfigurator</a> will construct the
+module context  in place just before it needs a reference.</p>
+
+<p>For a better feel of how this ends up being useful, or perhaps some
+inspiration, here’s an example of part of a real configuration file I am
+using for another  small project:</p>
+
+<pre>version: 0.3.9
+release: alpha
+authors: joseph weissman
+license: artistic &lt;http://www.perlfoundation.org/artistic_license_2_0&gt;
+
+# support module config
+support:
+    logging:
+        use_chainsaw: true
+        chainsaw:
+            hostname: 'localhost'
+            port: 8071
+
+# graphics subsystem config
+graphics:
+    default_window_options:
+        fullscreen: true
+        width:  1920
+        height: 1080
+
+# ...</pre>
+
+<p>— Tools</p>
+
+<p><a href="RConfigurator.html">RConfigurator</a> comes with a command line
+utility called ‘rconfig’ for debugging  your configuration files.
+Invoking the utility against a configuration file  attempts to perform the
+configuration, logging the statements RConfigurator.config!  would normally
+just silently ‘eval’. Invoke this utility as ‘rconfig [file1] [file2]
+…’  (assuming you have installed the gem.)</p>
+
+<p>Running rconfig over the first example yaml file gives us the module
+structure  we are expecting. It uses “HypotheticalParentModule” as the
+root project module Note the output from rconfig is the unindented
+‘compact’ form we actually evaluate,  with one key-value pair per line.</p>
+
+<pre>module HypotheticalParentModule; module SampleModule; SOME_KEY = &quot;another value&quot;; end; ; end    
+module I;  module Am;  module A;  module Module; end; end; end; end;    
+module HypotheticalParentModule; KEY_SHOULD_BE_MODULE = I::Am::A::Module; ; end 
+module HypotheticalParentModule; KEY = &quot;value&quot;; ; end   
+module HypotheticalParentModule; NUMERIC_DATA = 3.221; ; end</pre>
+
+<p>Please note that I have added this tool as a convenience, and I should
+point out  that developing the configuration file is generally quite
+straightforward. Using  rconfig to ‘validate’ is probably not
+necessary. This tool is included for sanity- inducing purposes (and perhaps
+more involved use-cases where it could be helpful  in the scenario where a
+complex config file has become subtly incorrect.)</p>
+
+<p>— Problems?</p>
+
+<p>Please log bug reports and enhancement proposals here, or feel free to
+email the  author/maintainer of <a
+href="RConfigurator.html">RConfigurator</a>, Joseph Weissman, jweissman1986
+(at) gmail.com</p>
+
+<p>— Afterword</p>
+
+<p>So far in practice, I have found that it is definitely convenient to be
+able to  architecturally separate ‘tuning’ from code. I like that I can
+instantiate complex  module structures just by adding a few lines of YAML.</p>
+
+  </div>
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+</body>
+</html>
+
