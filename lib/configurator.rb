@@ -1,11 +1,22 @@
-require 'yaml'
 
-require "configurator/version"
-require "configurator/utilities"
+require "rconfigurator/version"
+require "rconfigurator/utilities"
+# require "rconfigurator/configurator"
 
+
+# make a 'binding' to the local scope visible
 $__global_scope = binding()
 
-module Configurator
+module RConfigurator
+  
+  #
+  #  Use this configure! method to both create a new configurator AND
+  #  launch the configuration process in one go.
+  #
+  def self.configure!(name, file)
+    configurator = Configurator.new(name, file)
+    configurator.configure
+  end
   
   #
   # "Hydrate" a Ruby application's module constants from a configuration .yml
@@ -16,7 +27,8 @@ module Configurator
     
     #
     #  Configurator.new takes the name of the project and a configuration file
-    #  It does not perform any configuration yet; you must also call configure.
+    #  It does not perform any configuration yet; you must also call configure 
+    #  if RConfigurator is invoked this way.
     #
     def initialize(project_name, config_file, opts={})
       @project_name = project_name
@@ -32,10 +44,8 @@ module Configurator
       parse_and_recursively_create_constants! @data
     end
 
-
-
     #
-    #   configure Swords based on an easily-managed .yml file -- use 'eval' 
+    #   configure application based on an easily-managed .yml file -- use 'eval' 
     #   to generate constants based on the structure of the hash we get from the yaml.
     #   most of the business logic for recursively parsing a hash and creating module 
     #   constants basically just involves tracking module names properly.
@@ -61,7 +71,6 @@ module Configurator
             # explicitly build out this module (since it doesn't exist) so that we can talk about it
             expression = value.split('::').map { |module_name| "module #{module_name}; "}.join(' ')
             value.split('::').count.times { expression << "end; "}
-            # puts expression
             eval(expression, $__global_scope)
           end
 
@@ -71,20 +80,9 @@ module Configurator
           expr << "#{key.upcase} = #{value}; " 
           depth.times { expr << "end; "}
           expr = "module #{@project_name}; #{expr}; end"
-          # puts expr
           eval(expr, $__global_scope)
         end
       end
     end
   end
-  #
-  #  Use this configure! method to both create a new configurator AND
-  #  launch the configuration process in one go.
-  #
-  def self.configure!(name, file)
-    configurator = Configurator.new(name, file)
-    configurator.configure
-  end
-  
-
 end

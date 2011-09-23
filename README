@@ -1,30 +1,29 @@
-=== Welcome to Configurator!
+=== Welcome to RConfigurator!
 
---- Configuration shouldn't be hard
+--- Configuration shouldn't be hard...
 
-Loading configuration for your Ruby application has never been easier. 
+...and loading configuration for your Ruby application has never been easier. 
 
-Configurator automatically "hydrates" your application's module constants by walking
+RConfigurator automatically "hydrates" your application's module constants by walking
 through a .yml file. If you've got module constants strewn throughout your project, 
-you can use Configurator to aggregate these into one place.
+you can use RConfigurator to aggregate these into one place.
 
 --- Usage
 
-To get this going, you just have to require 'configurator' and provide use with the
+To get this going, you just have to require 'rconfigurator' and provide use with the
 name of the project and the location of the configuration file:
 
-    require 'configurator'
+    require 'rconfigurator'
     Configurator.configure! "ExampleModule", "/path/to/my/config"
 
 Configurator will analyze the file and 'inflate' your module constants using the data it finds there. Let's say you've got the following module constants:
 
-  # values defined in config file
   ExampleModule::KEY = 'value'
   ExampleModule::NUMERIC_DATA = 3.221
   ExampleModule::SampleModule::SOME_KEY = 'another value'    
   ExampleModule::KEY_SHOULD_BE_MODULE = I::Am::A::Module
 
-Configurator can create these for you (before you've even defined the modules
+RConfigurator can create these for you (before you've even defined the modules
 themselves!) if you point it to the following .yml file:
 
 	key: value
@@ -34,13 +33,13 @@ themselves!) if you point it to the following .yml file:
 	key_should_be_module: I::Am::A::Module
 
 
-Configurator even handles some common edge cases for you, in particular the case 
-when the value is itself a module. Configurator will construct the module context 
+RConfigurator even handles some common edge cases for you, in particular the case 
+when the value is itself a module. RConfigurator will construct the module context 
 in place just before it needs a reference. 
 
-For a better feel of how this ends up being useful, and perhaps some inspiration,
-here's an example of part of a real configuration file for another project I'm working on:
-
+For a better feel of how this ends up being useful, or perhaps some inspiration,
+here's an example of part of a real configuration file for another project I'm working on
+(in fact, the same project which 'spawned' this utility):
 
 		version: 0.3.9
 		release: alpha
@@ -66,6 +65,6 @@ here's an example of part of a real configuration file for another project I'm w
 
 
 
---- Problem?
+--- Problems? 
 
-Please log bug reports and enhancement requests here, or feel free to email the author/maintainer of Configurator, Joseph Weissman, jweissman1986 (at) gmail.com
+Please log bug reports and enhancement proposals here, or feel free to email the author/maintainer of RConfigurator, Joseph Weissman, jweissman1986 (at) gmail.com

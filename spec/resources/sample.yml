@@ -1,11 +1,23 @@
-# config file for imaginary 'sample' project
-# so should create
-# Sample::KEY = value
-# Sample::NUMERIC_DATA = 3.221
-# Sample::SampleModule::SOME_KEY = 'another value'
+###########################################
+#
+#     testing config file
+#
+#
 
 key: value
 numeric_data: 3.221
+
 sample_module:
     some_key: another value
+
 key_should_be_module: I::Am::A::Module
+
+#
+# So, RConfigurator.configure! should create
+#
+# Sample::KEY = value
+# Sample::NUMERIC_DATA = 3.221
+# Sample::SampleModule::SOME_KEY = 'another value'
+#
+# ...etc.
+#
