@@ -63,6 +63,19 @@ here's an example of part of a real configuration file for another project I'm w
 	
 		# ... 
 
+--- RConfig
+
+RConfigurator comes with a debugger that will output the statements it will 'eval'. You can
+invoke this utility as 'rconfig [file1] [file2] ...' assuming you have installed the gem.
+
+Running rconfig over the first example yaml file gives us the module structure we are expecting:
+
+	module HypotheticalParentModule; module SampleModule; SOME_KEY = "another value"; end; ; end
+	module I;  module Am;  module A;  module Module; end; end; end; end; 
+	module HypotheticalParentModule; KEY_SHOULD_BE_MODULE = I::Am::A::Module; ; end
+	module HypotheticalParentModule; KEY = "value"; ; end
+	module HypotheticalParentModule; NUMERIC_DATA = 3.221; ; end
+
 
 
 --- Problems? 
