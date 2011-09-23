@@ -1,7 +1,7 @@
 libs = %w[ lib/  ]
 libs.each { |lib| $:.unshift lib unless $:.include? lib }
 
-require 'configurator'
+require 'rconfigurator'
 
 describe RConfigurator, "performs dynamic Ruby application initialization" do
   it "parses a yaml configuration file and generates module constants" do
