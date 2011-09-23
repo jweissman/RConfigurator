@@ -1,6 +1,6 @@
 === Welcome to RConfigurator!
 
---- About
+--- Abstract
 
 RConfigurator automatically "hydrates" your application's module constants by walking
 through a .yml file. If you've got module constants strewn throughout your project, 
@@ -14,7 +14,8 @@ name of a project, and then call RConfigurator.configure!:
     require 'rconfigurator'
     RConfigurator.configure! "ExampleModule", "/path/to/my/config"
 
-Configurator will analyze the file and 'inflate' your module constants using the data it finds there. Let's say you've got the following module constants:
+Configurator will analyze the file and 'inflate' your module constants using the data 
+it finds there. Let's say you've got the following module constants:
 
   ExampleModule::KEY = 'value'
   ExampleModule::NUMERIC_DATA = 3.221
@@ -36,12 +37,13 @@ when the value is itself a module. RConfigurator will construct the module conte
 in place just before it needs a reference. 
 
 For a better feel of how this ends up being useful, or perhaps some inspiration,
-here's an example of part of a real configuration file I am using for another small project:
+here's an example of part of a real configuration file I am using for another 
+small project:
 
 		version: 0.3.9
 		release: alpha
 		authors: joseph weissman
-		license: artistic license <http://www.perlfoundation.org/artistic_license_2_0>
+		license: artistic <http://www.perlfoundation.org/artistic_license_2_0>
 
 		# support module config
 		support:
@@ -61,25 +63,38 @@ here's an example of part of a real configuration file I am using for another sm
 		# ... 
 
 
---- RConfig
+--- Tools
 
-RConfigurator comes with a debugger that will output the statements it will 'eval'. You can
-invoke this utility as 'rconfig [file1] [file2] ...' assuming you have installed the gem.
 
-Running rconfig over the first example yaml file gives us the module structure we are expecting:
+RConfigurator comes with a command line utility called 'rconfig' for debugging 
+your configuration files. Invoking the utility against a configuration file 
+attempts to perform the configuration, logging the statements RConfigurator.config! 
+would normally just silently 'eval'. Invoke this utility as 'rconfig [file1] [file2] ...' 
+(assuming you have installed the gem.)
 
-	module HypotheticalParentModule; module SampleModule; SOME_KEY = "another value"; end; ; end
-	module I;  module Am;  module A;  module Module; end; end; end; end; 
-	module HypotheticalParentModule; KEY_SHOULD_BE_MODULE = I::Am::A::Module; ; end
-	module HypotheticalParentModule; KEY = "value"; ; end
+Running rconfig over the first example yaml file gives us the module structure 
+we are expecting. It uses "HypotheticalParentModule" as the root project module
+I have added indentation for clarity, but the output from rconfig will be one
+the 'compact' form it actually evaluates, with one key-value pair per line.
+
+	module HypotheticalParentModule; module SampleModule; SOME_KEY = "another value"; end; ; end	
+	module I;  module Am;  module A;  module Module; end; end; end; end; 	
+	module HypotheticalParentModule; KEY_SHOULD_BE_MODULE = I::Am::A::Module; ; end	
+	module HypotheticalParentModule; KEY = "value"; ; end	
 	module HypotheticalParentModule; NUMERIC_DATA = 3.221; ; end
 
-
+I have added this tool as a convenience, but I should point out that the configuration 
+is generally so straightforward that using it to 'validate' is probably not usually 
+necessary. It is there for sanity-checking and perhaps more complicated scenarios 
+where it could be helpful in the case the config file has become subtly incorrect.
 
 --- Problems? 
 
-Please log bug reports and enhancement proposals here, or feel free to email the author/maintainer of RConfigurator, Joseph Weissman, jweissman1986 (at) gmail.com
+Please log bug reports and enhancement proposals here, or feel free to email the 
+author/maintainer of RConfigurator, Joseph Weissman, jweissman1986 (at) gmail.com
 
---- Conclusion
+--- Afterword
 
-So far in practice, I have found that it is definitely convenient to be able to architecturally separate 'tuning' from code. I like that I can instantiate complex module structures just by adding a few lines of YAML.
+So far in practice, I have found that it is definitely convenient to be able to 
+architecturally separate 'tuning' from code. I like that I can instantiate complex 
+module structures just by adding a few lines of YAML.
