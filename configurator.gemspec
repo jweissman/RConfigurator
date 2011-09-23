@@ -1,13 +1,6 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "configurator"
-=begin
-$:.push File.expand_path("../lib/rconfigurator", __FILE__)
-
-require "version"
-require "utilities"
-require "configurator"
-=end
+require 'rconfigurator/version'
 Gem::Specification.new do |s|
   s.name        = "rconfigurator"
   s.version     = RConfigurator::VERSION

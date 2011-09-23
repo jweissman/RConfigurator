@@ -1,4 +1,3 @@
-
 require "rconfigurator/version"
 require "rconfigurator/utilities"
 # require "rconfigurator/configurator"
@@ -40,8 +39,8 @@ module RConfigurator
     #  Kicks off our recursive enumeration of the configuration
     #  data and module constant generation business logic.
     #
-    def configure
-      parse_and_recursively_create_constants! @data
+    def configure(debug=false)
+      parse_and_recursively_create_constants!(@data, [], debug)
     end
 
     #
@@ -50,12 +49,12 @@ module RConfigurator
     #   most of the business logic for recursively parsing a hash and creating module 
     #   constants basically just involves tracking module names properly.
     #
-    def parse_and_recursively_create_constants!(hash, module_context = [])
+    def parse_and_recursively_create_constants!(hash, module_context = [], debug=false)
       hash.each do |key, value|
         if value.is_a? Hash
           module_name = convert_string_to_camel_case(key)
           context = module_context.dup << module_name
-          parse_and_recursively_create_constants! hash[key], context
+          parse_and_recursively_create_constants!(hash[key], context, debug)
         else
           value_is_a_module = false
 
@@ -72,6 +71,7 @@ module RConfigurator
             expression = value.split('::').map { |module_name| "module #{module_name}; "}.join(' ')
             value.split('::').count.times { expression << "end; "}
             eval(expression, $__global_scope)
+            puts(expression) if debug
           end
 
           # define the given constant
@@ -81,6 +81,7 @@ module RConfigurator
           depth.times { expr << "end; "}
           expr = "module #{@project_name}; #{expr}; end"
           eval(expr, $__global_scope)
+          puts(expr) if debug
         end
       end
     end
