@@ -1,8 +1,6 @@
 === Welcome to RConfigurator!
 
---- Configuration shouldn't be hard...
-
-...and loading configuration for your Ruby application has never been easier. 
+--- About
 
 RConfigurator automatically "hydrates" your application's module constants by walking
 through a .yml file. If you've got module constants strewn throughout your project, 
@@ -10,8 +8,8 @@ you can use RConfigurator to aggregate these into one place.
 
 --- Usage
 
-To get this going, you just have to require 'rconfigurator' and provide use with the
-name of the project and the location of the configuration file:
+Just require 'rconfigurator', provide the location of the configuration file and the
+name of a project, and then call RConfigurator.configure!:
 
     require 'rconfigurator'
     RConfigurator.configure! "ExampleModule", "/path/to/my/config"
