@@ -5,8 +5,10 @@ unless ARGV.count > 0
   puts "USAGE: rconfig [file1] [file2] ... "
 end
 
+
 require 'rubygems'			    	
-require 'rconfigurator'       
+require 'rconfigurator' 
+require 'yaml'      
 
 ARGV.each do |config_file|
   RConfigurator.configure!("[Parent Module]", config_file, true)
