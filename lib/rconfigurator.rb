@@ -57,6 +57,7 @@ module RConfigurator
           parse_and_recursively_create_constants!(hash[key], context, debug)
         else
           value_is_a_module = false
+          value_is_an_array = false
 
           if value.is_a? String
             if value.include? "::"
@@ -64,6 +65,10 @@ module RConfigurator
             else
               value = "\"#{value}\""          
             end
+          end
+      
+          if value.is_a? Array
+            value = "[#{value.join(', ')}]"
           end
 
           if value_is_a_module
